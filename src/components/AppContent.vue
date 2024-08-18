@@ -23,11 +23,15 @@ export default {
           <div class="col-auto text-center">
             <h1>Pianifica il tuo viaggio</h1>
 
-            <ul>
-              <li v-for="(travel, i) in store.travels" :key="i" >
-                  {{ travel.name }}
-              </li>
-            </ul>
+            
+              <div v-for="(travel, i) in store.travels" :key="i">
+                  <h5>{{ travel.name }}</h5>
+                  <p><strong>Durata: </strong>{{ travel.days }}</p>
+                  <p>{{ travel.description }}</p>
+                  <p><strong>Valutazione: </strong>{{ travel.rating }}</p>
+                <hr>
+              </div>
+            
 
           </div>
         </div>
