@@ -50,28 +50,27 @@ export default {
       <div class="container py-5 h-100">
         <div class="row aling-items-center flex-column justify-content-center h-100">
           <div class="col-auto text-center">
-            <h1>Dove sei andato?</h1>
+            <h1>Diario di Viaggio</h1>
 
             <div class="container">
               <div class="row">
+
                 <!-- FORM -->
                 <div class="col">
                   <div class="d-flex flex-column gap-3">
                     <input type="text" v-model="newTrip.tripName" placeholder="Dove hai viaggiato?">
-                    <!-- <input type="text" v-model="newTrip.rating" placeholder="Rating"> -->
-                    <input type="text" v-model="newTrip.description" placeholder="Descrivi il tuo viaggio">
+                    <textarea name="" id="" cols="30" rows="10" v-model="newTrip.description" placeholder="Descrivi il tuo viaggio"></textarea>
                     <div class="d-flex gap-3">
                       <h5>Valutazione:</h5>
                       <div v-for="(inp, i) in 6" :key="i">
                         <label :for="i" class="form-check-label mx-1">{{ i }}</label>
                         <input class="form-check-input" type="radio" :name="i" :id="i " :value="i" v-model="newTrip.rating">
                       </div>
-                    </div>
-
-                    
+                    </div>                    
                     <div class="btn btn-primary" @click="addTrip(this.newTrip)">Aggiungi</div>
                   </div>
                 </div>
+
                 <!-- DATA -->
                 <div class="col">
                   <div v-for="(travel, i) in store.travels" :key="i">
@@ -82,7 +81,7 @@ export default {
                     <hr>
                   </div>
                 </div>
-
+                
               </div>
             </div>          
           </div>
