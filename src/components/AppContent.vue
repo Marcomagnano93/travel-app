@@ -8,7 +8,6 @@ export default {
   data() {
     return {
       store,
-      newTravel: '',
       newTrip: {
         tripName: '',
         rating: '',

@@ -7,5 +7,4 @@ export const store = reactive({
     description: ''
   },
 ],
-  trips: []
 })
