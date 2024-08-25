@@ -8,7 +8,37 @@ export default {
   data() {
     return {
       store,
+      newTravel: '',
+      newTrip: {
+        tripName: '',
+        rating: '',
+        description: ''
+      }
     }
+  },
+  methods: {
+    keep(){
+      localStorage.travels = JSON.stringify(this.store.travels);
+    },
+    keepUp() {
+      this.store.travels = localStorage.travels
+        ? JSON.parse(localStorage.travels)
+        : [];
+    },
+    addTrip(newTrip){
+      this.store.travels.push({...newTrip})
+      this.keep();
+      // this.newTrip.tripName = '';
+      // this.newTrip.rating = '';
+      // this.newTrip.description = '';
+    },
+    removeTravel(trip) {
+      this.store.travels.splice(trip, 1);
+      this.keep();
+    }
+  },
+  mounted() {
+    this.keepUp();
   }
 }
 
@@ -21,24 +51,37 @@ export default {
       <div class="container py-5 h-100">
         <div class="row aling-items-center flex-column justify-content-center h-100">
           <div class="col-auto text-center">
-            <h1>Descrivi tuo viaggio</h1>
-            <form action="">
-              <input type="text" placeholder="dove sei stato?" v-model="name">
-              <input type="text" placeholder="quanto sei stato?" v-model="days">
-              <input type="text" placeholder="descrivi la tappa" v-model="description">
-              <input type="text" placeholder="valuta" v-model="rating">
+            <h1>Dove sei andato?</h1>
 
-            </form>
-            
-              <div v-for="(travel, i) in store.travels" :key="i">
-                  <h5>{{ travel.name }}</h5>
-                  <p><strong>Durata: </strong>{{ travel.days }}</p>
-                  <p>{{ travel.description }}</p>
-                  <p><strong>Valutazione: </strong>{{ travel.rating }}</p>
-                <hr>
+            <div class="container">
+              <div class="row">
+                <!-- FORM -->
+                <div class="col">
+                  <div class="d-flex flex-column gap-3">
+                    <input type="text" v-model="newTrip.tripName" placeholder="Meta?">
+                    <!-- <input type="text" v-model="newTrip.rating" placeholder="Rating"> -->
+                    <input type="text" v-model="newTrip.description" placeholder="Descrizione">
+                    <div v-for="(inp, i) in 6" :key="i">
+                      <label for="{{ i }}">{{ i }}</label>
+                      <input type="radio" name="{{ i }}" id="{{ i }}" v-model="newTrip.rating">
+                    </div>
+                    
+                    <div class="btn btn-primary" @click="addTrip(this.newTrip)">Aggiungi</div>
+                  </div>
+                </div>
+                <!-- DATA -->
+                <div class="col">
+                  <div v-for="(travel, i) in store.travels" :key="i">
+                      <h5>{{ travel.tripName }}</h5>
+                      <p>{{ travel.description }}</p>
+                      <p><strong>Valutazione: </strong>{{ travel.rating }}</p>
+                      <div class="btn btn-danger btn-sm" @click="removeTravel(travel)">Rimuovi</div>
+                    <hr>
+                  </div>
+                </div>
+
               </div>
-            
-
+            </div>          
           </div>
         </div>
       </div>
@@ -47,4 +90,6 @@ export default {
 
 </template>
 
-<style></style>
+<style>
+
+</style>
