@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       store,
+      errorInputName: false,
       newTrip: {
         tripName: '',
         rating: '',
@@ -25,11 +26,18 @@ export default {
         : [];
     },
     addTrip(newTrip){
-      this.store.travels.push({...newTrip})
-      this.keep();
-      this.newTrip.tripName = '';
-      this.newTrip.rating = '';
-      this.newTrip.description = '';
+      if (this.newTrip.tripName === ''){
+        return this.errorInputName = true;
+      }
+      else {
+        this.errorInputName = false;
+        this.store.travels.push({...newTrip})
+        this.keep();
+        this.newTrip.tripName = '';
+        this.newTrip.rating = '';
+        this.newTrip.description = '';
+      }
+
     },
     removeTravel(trip) {
       this.store.travels.splice(trip, 1);
@@ -74,13 +82,18 @@ export default {
                     </div>                    
                     <div class="btn btn-primary" @click="addTrip(this.newTrip)">Aggiungi</div>
                   </div>
+                  <div v-if="this.errorInputName === true">
+                      <div class="error">
+                        <p>Inserisci il nome della tua tappa!</p>
+                      </div>
+                  </div>
                 </div>
 
                 <!-- DATA -->
                 <div class="col">
                   <h3 class="my-3">Le tue tappe</h3>
                   <div v-for="(travel, i) in store.travels" :key="i">
-                      <h5>{{ travel.tripName }}</h5>
+                      <h4><strong>{{ travel.tripName }}</strong></h4>
                       <p>{{ travel.description }}</p>
                       <p><strong>Valutazione: </strong></p>
                       <div class="d-flex justify-content-center">
