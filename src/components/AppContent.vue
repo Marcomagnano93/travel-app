@@ -79,7 +79,7 @@ export default {
                       <h5>{{ travel.tripName }}</h5>
                       <p>{{ travel.description }}</p>
                       <p><strong>Valutazione: </strong>{{ travel.rating }}</p>
-                      <div class="btn btn-danger btn-sm" @click="removeTravel(travel)">Rimuovi</div>
+                      <div class="btn btn-danger btn-sm" @click="removeTravel(i)">Rimuovi</div>
                     <hr>
                   </div>
                 </div>
