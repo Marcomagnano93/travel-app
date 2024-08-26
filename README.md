@@ -2,6 +2,4 @@ CODING TRAINING TRAVEL APP
 
 
 NEXT_STEPS
-- ADD: strars ratings
-- HEADER & Footer
-- 
+- Footer

@@ -34,6 +34,10 @@ export default {
     removeTravel(trip) {
       this.store.travels.splice(trip, 1);
       this.keep();
+    },
+    emptyStars(stars){
+      const totalStars = 5 - stars;
+      return totalStars;
     }
   },
   mounted() {
@@ -78,7 +82,18 @@ export default {
                   <div v-for="(travel, i) in store.travels" :key="i">
                       <h5>{{ travel.tripName }}</h5>
                       <p>{{ travel.description }}</p>
-                      <p><strong>Valutazione: </strong>{{ travel.rating }}</p>
+                      <p><strong>Valutazione: </strong></p>
+                      <div class="d-flex justify-content-center">
+                        <ul class="d-flex gap-3 stars mb-3">
+                          <li
+                          v-for="(star, i) in travel.rating" :key="i" class="gold">
+                            <font-awesome-icon :icon="['fas', 'star']" />
+                          </li>
+                          <li v-for="(eStar, i) in emptyStars(travel.rating)" :key="i" class="gold">
+                            <font-awesome-icon :icon="['far', 'star']" />
+                          </li>
+                        </ul>
+                      </div>
                       <div class="btn btn-danger btn-sm" @click="removeTravel(i)">Rimuovi</div>
                     <hr>
                   </div>
