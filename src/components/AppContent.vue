@@ -27,9 +27,9 @@ export default {
     addTrip(newTrip){
       this.store.travels.push({...newTrip})
       this.keep();
-      // this.newTrip.tripName = '';
-      // this.newTrip.rating = '';
-      // this.newTrip.description = '';
+      this.newTrip.tripName = '';
+      this.newTrip.rating = '';
+      this.newTrip.description = '';
     },
     removeTravel(trip) {
       this.store.travels.splice(trip, 1);
@@ -57,6 +57,7 @@ export default {
 
                 <!-- FORM -->
                 <div class="col">
+                  <h3 class="my-3">Aggiungi una tappa</h3>
                   <div class="d-flex flex-column gap-3">
                     <input type="text" v-model="newTrip.tripName" placeholder="Dove hai viaggiato?">
                     <textarea name="" id="" cols="30" rows="10" v-model="newTrip.description" placeholder="Descrivi il tuo viaggio"></textarea>
@@ -73,6 +74,7 @@ export default {
 
                 <!-- DATA -->
                 <div class="col">
+                  <h3 class="my-3">Le tue tappe</h3>
                   <div v-for="(travel, i) in store.travels" :key="i">
                       <h5>{{ travel.tripName }}</h5>
                       <p>{{ travel.description }}</p>
