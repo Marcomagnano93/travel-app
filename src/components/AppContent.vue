@@ -120,17 +120,17 @@ export default {
                 <div class="col">
                   <h3 class="my-3">Aggiungi una tappa</h3>
                   <div class="d-flex flex-column gap-3">
-                    <input type="text" v-model="newTrip.tripName" class="form-control" placeholder="Nome della tappa *">
+                    <input type="text" v-model="newTrip.tripName" class="form-control" placeholder="Nome della tappa *" @keyup.enter="addTrip(this.newTrip)">
                     <div v-if="this.errorInputName === true">
                       <div class="error">
                         <p>Inserisci il nome della tua tappa</p>
                       </div>
                     </div>
-                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in € *">
+                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in € *" @keyup.enter="addTrip(this.newTrip)">
                       <div class="error" v-if="this.errorPay === true">
                           <p>Il costo deve essere un numero positivo</p>
                       </div>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa"></textarea>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa" @keyup.enter="addTrip(this.newTrip)"></textarea>
                     <div class="d-flex gap-3">
                       <h5>Valutazione:</h5>
                       <div v-for="(inp, i) in 6" :key="i">
