@@ -30,6 +30,7 @@ export default {
     },
     generalStars(){
       let total = 0;
+      let lenght = this.store.travels.length;
       if (this.store.travels.length > 0){
       for (let i = 0; i < this.store.travels.length; i++) {
         const singleTravel = this.store.travels[i];
@@ -39,8 +40,8 @@ export default {
         total += singleTravelRating;
       }
       
-        let trueTotal = total  / this.store.travels.length;
-        return parseInt(trueTotal);
+        let trueTotal = total / lenght;
+        return Math.round(trueTotal);
       }
       else {
         return 0;
