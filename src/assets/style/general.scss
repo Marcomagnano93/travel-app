@@ -10,6 +10,7 @@
 
 main {
   flex-grow: 1;
+  background-color: seashell;
 }
 
 .bg-header {
@@ -18,11 +19,17 @@ main {
   color: black;
 }
 
+.logo {
+  font-size: 48px;
+  font-weight: 600;
+  color: palegoldenrod;
+}
+
 .error {
   list-style: none;
   color: red;
-  font-weight: 500;
-  font-size: 24px;
+  font-weight: 400;
+  font-size: 16px;
   text-align: left !important;
 }
 
@@ -35,4 +42,8 @@ main {
 
 .gold {
   color: gold;
+}
+
+.seagreen {
+  color: lightseagreen !important;
 }

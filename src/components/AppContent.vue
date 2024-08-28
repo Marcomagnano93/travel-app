@@ -59,10 +59,10 @@ export default {
 
   <main>
     <section class="h-100">
-      <div class="container py-5 h-100">
+      <div class="container py-4 h-100">
         <div class="row aling-items-center flex-column justify-content-center h-100">
           <div class="col-auto text-center">
-            <h1>Diario di Viaggio</h1>
+            <h1 class="logo seagreen">Diario di Viaggio</h1>
 
             <div class="container">
               <div class="row">
@@ -71,8 +71,13 @@ export default {
                 <div class="col">
                   <h3 class="my-3">Aggiungi una tappa</h3>
                   <div class="d-flex flex-column gap-3">
-                    <input type="text" v-model="newTrip.tripName" placeholder="Dove hai viaggiato?">
-                    <textarea name="" id="" cols="30" rows="10" v-model="newTrip.description" placeholder="Descrivi il tuo viaggio"></textarea>
+                    <input id="tripName" type="text" v-model="newTrip.tripName" class="form-control" placeholder="Nome della tappa *">
+                    <div v-if="this.errorInputName === true">
+                      <div class="error">
+                        <p>Inserisci il nome della tua tappa!</p>
+                      </div>
+                    </div>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa"></textarea>
                     <div class="d-flex gap-3">
                       <h5>Valutazione:</h5>
                       <div v-for="(inp, i) in 6" :key="i">
@@ -82,18 +87,13 @@ export default {
                     </div>                    
                     <div class="btn btn-primary" @click="addTrip(this.newTrip)">Aggiungi</div>
                   </div>
-                  <div v-if="this.errorInputName === true">
-                      <div class="error">
-                        <p>Inserisci il nome della tua tappa!</p>
-                      </div>
-                  </div>
                 </div>
 
                 <!-- DATA -->
                 <div class="col">
                   <h3 class="my-3">Le tue tappe</h3>
                   <div v-for="(travel, i) in store.travels" :key="i">
-                      <h4><strong>{{ travel.tripName }}</strong></h4>
+                      <h4 class="seagreen"><strong>{{ travel.tripName }}</strong></h4>
                       <p>{{ travel.description }}</p>
                       <p><strong>Valutazione: </strong></p>
                       <div class="d-flex justify-content-center">
