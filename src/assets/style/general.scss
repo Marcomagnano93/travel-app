@@ -1,5 +1,6 @@
 /* @use './partials/exmaple.scss'; */
 
+
 #app {
   height: 100vh;
   width: 100vw;
@@ -25,6 +26,12 @@ main {
   color: palegoldenrod;
 }
 
+.link {
+  color: currentColor;
+  text-decoration: none !important;
+
+}
+
 .error {
   list-style: none;
   color: red;
@@ -40,12 +47,29 @@ main {
   box-sizing: border-box;
   }
 
+
+
+
+
+// *** UTILITIES ***
 .gold {
   color: gold;
 }
 
 .seagreen {
   color: lightseagreen !important;
+}
+
+.goldsand {
+  color: palegoldenrod !important;
+}
+
+strong {
+  color: lightseagreen !important;
+}
+
+.btn-in {
+  background-color: #0A66C2;
 }
 
 .left {
