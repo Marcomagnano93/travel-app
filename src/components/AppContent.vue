@@ -10,11 +10,13 @@ export default {
       store,
       errorInputName: false,
       errorPay: false,
+      errorNight: false,
       newTrip: {
         tripName: '',
         rating: '',
         description: '',
-        payed: ''
+        payed: '',
+        days: ''
       }
     }
   },
@@ -27,7 +29,6 @@ export default {
       this.store.travels = localStorage.travels
         ? JSON.parse(localStorage.travels)
         : [];
-
     },
     generalStars(){
       let total = 0;
@@ -57,14 +58,30 @@ export default {
 
         totalPrice += singlePrice;
       }
-
-        // let finalPrice = totalPrice;
-        // return finalPrice;
         return totalPrice.toFixed(2);
       }
       else {
         return 0;
       }
+    },
+    totalDays(){
+      let totalNights = 0;
+      if (this.store.travels.length > 0){
+      for (let i = 0; i < this.store.travels.length; i++) {
+        const singleTravel = this.store.travels[i];
+        const singleTravelNights = Number(singleTravel.days);
+
+        totalNights += singleTravelNights;
+      }
+        return Math.round(totalNights);
+      }
+      else {
+        return 0;
+      }
+    },
+    priceXNight(nights, totalPrice){
+      const total = totalPrice / nights;
+      return Number(total).toFixed(2);
     },
     addTrip(newTrip){
       if (this.newTrip.tripName === ''){
@@ -73,17 +90,23 @@ export default {
       else if(this.newTrip.payed < 0 || isNaN(this.newTrip.payed) === true || this.newTrip.payed === ''){
         return this.errorPay = true;
       }
+      else if(this.newTrip.days < 0 || isNaN(this.newTrip.days) === true || this.newTrip.days === ''){
+        return this.errorNight = true;
+      }
       else {
         this.errorInputName = false;
         this.errorPay = false;
+        this.errorNight = false;
         this.store.travels.push({...newTrip});
         this.generalStars();
-        this.totalPrice()
+        this.totalPrice();
+        this.totalDays();
         this.keep();
         this.newTrip.tripName = '';
         this.newTrip.rating = '';
         this.newTrip.description = '';
         this.newTrip.payed = '';
+        this.newTrip.days = '';
       }
     },
     removeTravel(trip) {
@@ -119,16 +142,21 @@ export default {
                 <!-- FORM -->
                 <div class="col">
                   <h3 class="my-3">Aggiungi una tappa</h3>
+                  <p>I campi con * sono obbligatori</p>
                   <div class="d-flex flex-column gap-3">
-                    <input type="text" v-model="newTrip.tripName" class="form-control" placeholder="Nome della tappa *" @keyup.enter="addTrip(this.newTrip)">
+                    <input type="text" v-model="newTrip.tripName" class="form-control" placeholder=" * Nome della tappa" @keyup.enter="addTrip(this.newTrip)">
                     <div v-if="this.errorInputName === true">
                       <div class="error">
                         <p>Inserisci il nome della tua tappa</p>
                       </div>
                     </div>
-                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in € *" @keyup.enter="addTrip(this.newTrip)">
+                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder=" * Costo della tappa in €" @keyup.enter="addTrip(this.newTrip)">
                       <div class="error" v-if="this.errorPay === true">
                           <p>Il costo deve essere un numero positivo</p>
+                      </div>
+                    <input type="text" v-model="newTrip.days" class="form-control" placeholder=" * Notti di permanenza" @keyup.enter="addTrip(this.newTrip)">
+                      <div class="error" v-if="this.errorNight === true">
+                          <p>Inserisci un numero pari o superiore a 0 per le notti</p>
                       </div>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa" @keyup.enter="addTrip(this.newTrip)"></textarea>
                     <div class="d-flex gap-3">
@@ -149,6 +177,7 @@ export default {
                       <h4 class="seagreen"><strong>{{ travel.tripName }}</strong></h4>
                       <p>{{ travel.description }}</p>
                       <p><strong>Costo tappa: </strong>{{ Number(travel.payed).toFixed(2) }} €</p>
+                      <p><strong>Durata: </strong>{{ Number(travel.days) }} Notti</p>
                       <p><strong>Valutazione: </strong></p>
                       <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars mb-3">
@@ -172,7 +201,9 @@ export default {
                   <div class="d-flex flex-column"
                   v-if="this.store.travels.length > 0">
                     <p><strong>Tappe: </strong>{{ this.store.travels.length }}</p>
+                    <p><strong>Notti di viaggio: </strong> {{ totalDays() }}</p>
                     <p><strong>Costo totale: </strong> {{ totalPrice() }} €</p>
+                    <p><strong>Costo medio per notte: </strong> {{ priceXNight(totalDays(), totalPrice()) }} €</p>
                     <p><strong>Valutazione generale: </strong></p>
                     <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars">
