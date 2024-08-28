@@ -49,6 +49,21 @@ export default {
         return 0;
       }
     },
+    totalPrice(){
+      let totalPrice = 0;
+      for (let i = 0; i < this.store.travels.length; i++) {
+        const singleTravel = this.store.travels[i];
+        const singlePrice = singleTravel.payed;
+
+        totalPrice += singlePrice;
+      }
+      if (this.store.travels.length > 0){
+        return totalPrice.toFixed(2);
+      }
+      else {
+        return 0;
+      }
+    },
     addTrip(newTrip){
       if (this.newTrip.tripName === ''){
         return this.errorInputName = true;
@@ -151,6 +166,8 @@ export default {
                   <h3 class="my-3">Riepilogo Viaggio</h3>
                   <div class="d-flex flex-column"
                   v-if="this.store.travels.length > 0">
+                    <p><strong>Tappe: </strong>{{ this.store.travels.length }}</p>
+                    <p><strong>Costo totale: </strong>{{ totalPrice() }} €</p>
                     <p><strong>Valutazione generale: </strong></p>
                     <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars">
