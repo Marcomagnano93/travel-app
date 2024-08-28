@@ -9,6 +9,7 @@ export default {
     return {
       store,
       errorInputName: false,
+      errorPay: false,
       newTrip: {
         tripName: '',
         rating: '',
@@ -67,8 +68,12 @@ export default {
       if (this.newTrip.tripName === ''){
         return this.errorInputName = true;
       }
+      else if(this.newTrip.payed < 0 || isNaN(this.newTrip.payed) === true){
+        return this.errorPay = true;
+      }
       else {
         this.errorInputName = false;
+        this.errorPay = false;
         this.store.travels.push({...newTrip});
         this.generalStars();
         this.keep();
@@ -115,14 +120,13 @@ export default {
                     <input type="text" v-model="newTrip.tripName" class="form-control" placeholder="Nome della tappa *">
                     <div v-if="this.errorInputName === true">
                       <div class="error">
-                        <p>Inserisci il nome della tua tappa!</p>
+                        <p>Inserisci il nome della tua tappa</p>
                       </div>
                     </div>
                     <label for="cost" class="form-check-label mx-1 left">Costo della tappa: </label>
-                    <input type="number" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in €">
-                      <div class="error">
-                          <p v-if="isNaN(this.newTrip.payed)">Il costo della tappa deve essere un numero!</p>
-                          <p v-if="this.newTrip.payed < 0">Il costo della tappa deve essere positivo!</p>
+                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in €">
+                      <div class="error" v-if="this.errorPay === true">
+                          <p>Il costo deve essere un numero positivo</p>
                       </div>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa"></textarea>
                     <div class="d-flex gap-3">
