@@ -12,11 +12,16 @@ export default {
       newTrip: {
         tripName: '',
         rating: '',
-        description: ''
+        description: '',
+        payed: 0
       }
     }
   },
   methods: {
+    // priceFixed(n){
+    //   const fixed = n.toFixed(2);
+    //   return fixed;
+    // },
     keep(){
       localStorage.travels = JSON.stringify(this.store.travels);
       // localStorage.totalRating = JSON.stringify(this.store.totalRating);
@@ -56,6 +61,7 @@ export default {
         this.newTrip.tripName = '';
         this.newTrip.rating = '';
         this.newTrip.description = '';
+        this.newTrip.payed = 0;
       }
     },
     removeTravel(trip) {
@@ -92,12 +98,18 @@ export default {
                 <div class="col">
                   <h3 class="my-3">Aggiungi una tappa</h3>
                   <div class="d-flex flex-column gap-3">
-                    <input id="tripName" type="text" v-model="newTrip.tripName" class="form-control" placeholder="Nome della tappa *">
+                    <input type="text" v-model="newTrip.tripName" class="form-control" placeholder="Nome della tappa *">
                     <div v-if="this.errorInputName === true">
                       <div class="error">
                         <p>Inserisci il nome della tua tappa!</p>
                       </div>
                     </div>
+                    <label for="cost" class="form-check-label mx-1 left">Costo della tappa: </label>
+                    <input type="number" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in €">
+                      <div class="error">
+                          <p v-if="isNaN(this.newTrip.payed)">Il costo della tappa deve essere un numero!</p>
+                          <p v-if="this.newTrip.payed < 0">Il costo della tappa deve essere positivo!</p>
+                      </div>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa"></textarea>
                     <div class="d-flex gap-3">
                       <h5>Valutazione:</h5>
@@ -116,6 +128,7 @@ export default {
                   <div v-for="(travel, i) in store.travels" :key="i">
                       <h4 class="seagreen"><strong>{{ travel.tripName }}</strong></h4>
                       <p>{{ travel.description }}</p>
+                      <p><strong>Costo tappa: </strong>{{ travel.payed.toFixed(2)}} €</p>
                       <p><strong>Valutazione: </strong></p>
                       <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars mb-3">
