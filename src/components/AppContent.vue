@@ -18,22 +18,19 @@ export default {
     }
   },
   methods: {
-    // priceFixed(n){
-    //   const fixed = n.toFixed(2);
-    //   return fixed;
-    // },
     keep(){
       localStorage.travels = JSON.stringify(this.store.travels);
-      // localStorage.totalRating = JSON.stringify(this.store.totalRating);
+
     },
     keepUp() {
       this.store.travels = localStorage.travels
         ? JSON.parse(localStorage.travels)
         : [];
-      // this.store.totalRating = localStorage.totalRating ? JSON.parse(localStorage.totalRating) : 0;
+
     },
     generalStars(){
       let total = 0;
+      if (this.store.travels.length > 0){
       for (let i = 0; i < this.store.travels.length; i++) {
         const singleTravel = this.store.travels[i];
 
@@ -41,7 +38,7 @@ export default {
 
         total += singleTravelRating;
       }
-      if (this.store.travels.length > 0){
+      
         let trueTotal = total  / this.store.travels.length;
         return parseInt(trueTotal);
       }
@@ -58,7 +55,8 @@ export default {
         totalPrice += singlePrice;
       }
       if (this.store.travels.length > 0){
-        return totalPrice.toFixed(2);
+        // return totalPrice.toFixed(2);
+        return totalPrice;
       }
       else {
         return 0;
@@ -143,7 +141,7 @@ export default {
                   <div v-for="(travel, i) in store.travels" :key="i">
                       <h4 class="seagreen"><strong>{{ travel.tripName }}</strong></h4>
                       <p>{{ travel.description }}</p>
-                      <p><strong>Costo tappa: </strong>{{ travel.payed.toFixed(2)}} €</p>
+                      <p><strong>Costo tappa: </strong>{{ travel.payed }} €</p>
                       <p><strong>Valutazione: </strong></p>
                       <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars mb-3">
