@@ -14,7 +14,7 @@ export default {
         tripName: '',
         rating: '',
         description: '',
-        payed: 0
+        payed: ''
       }
     }
   },
@@ -50,15 +50,17 @@ export default {
     },
     totalPrice(){
       let totalPrice = 0;
+      if (this.store.travels.length > 0){
       for (let i = 0; i < this.store.travels.length; i++) {
         const singleTravel = this.store.travels[i];
-        const singlePrice = singleTravel.payed;
+        const singlePrice = Number(singleTravel.payed);
 
         totalPrice += singlePrice;
       }
-      if (this.store.travels.length > 0){
-        // return totalPrice.toFixed(2);
-        return totalPrice;
+
+        // let finalPrice = totalPrice;
+        // return finalPrice;
+        return totalPrice.toFixed(2);
       }
       else {
         return 0;
@@ -68,7 +70,7 @@ export default {
       if (this.newTrip.tripName === ''){
         return this.errorInputName = true;
       }
-      else if(this.newTrip.payed < 0 || isNaN(this.newTrip.payed) === true){
+      else if(this.newTrip.payed < 0 || isNaN(this.newTrip.payed) === true || this.newTrip.payed === ''){
         return this.errorPay = true;
       }
       else {
@@ -76,11 +78,12 @@ export default {
         this.errorPay = false;
         this.store.travels.push({...newTrip});
         this.generalStars();
+        this.totalPrice()
         this.keep();
         this.newTrip.tripName = '';
         this.newTrip.rating = '';
         this.newTrip.description = '';
-        this.newTrip.payed = 0;
+        this.newTrip.payed = '';
       }
     },
     removeTravel(trip) {
@@ -108,7 +111,7 @@ export default {
       <div class="container py-4 h-100">
         <div class="row aling-items-center flex-column justify-content-center h-100">
           <div class="col-auto text-center">
-            <h1 class="logo seagreen">Diario di Viaggio</h1>
+            <h2 class="logo seagreen">Il tuo Diario di Viaggio</h2>
 
             <div class="container">
               <div class="row">
@@ -123,8 +126,7 @@ export default {
                         <p>Inserisci il nome della tua tappa</p>
                       </div>
                     </div>
-                    <label for="cost" class="form-check-label mx-1 left">Costo della tappa: </label>
-                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in €">
+                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder="Costo della tappa in € *">
                       <div class="error" v-if="this.errorPay === true">
                           <p>Il costo deve essere un numero positivo</p>
                       </div>
@@ -146,7 +148,7 @@ export default {
                   <div v-for="(travel, i) in store.travels" :key="i">
                       <h4 class="seagreen"><strong>{{ travel.tripName }}</strong></h4>
                       <p>{{ travel.description }}</p>
-                      <p><strong>Costo tappa: </strong>{{ travel.payed }} €</p>
+                      <p><strong>Costo tappa: </strong>{{ Number(travel.payed).toFixed(2) }} €</p>
                       <p><strong>Valutazione: </strong></p>
                       <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars mb-3">
@@ -170,7 +172,7 @@ export default {
                   <div class="d-flex flex-column"
                   v-if="this.store.travels.length > 0">
                     <p><strong>Tappe: </strong>{{ this.store.travels.length }}</p>
-                    <p><strong>Costo totale: </strong>{{ totalPrice() }} €</p>
+                    <p><strong>Costo totale: </strong> {{ totalPrice() }} €</p>
                     <p><strong>Valutazione generale: </strong></p>
                     <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars">
