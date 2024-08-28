@@ -19,11 +19,30 @@ export default {
   methods: {
     keep(){
       localStorage.travels = JSON.stringify(this.store.travels);
+      // localStorage.totalRating = JSON.stringify(this.store.totalRating);
     },
     keepUp() {
       this.store.travels = localStorage.travels
         ? JSON.parse(localStorage.travels)
         : [];
+      // this.store.totalRating = localStorage.totalRating ? JSON.parse(localStorage.totalRating) : 0;
+    },
+    generalStars(){
+      let total = 0;
+      for (let i = 0; i < this.store.travels.length; i++) {
+        const singleTravel = this.store.travels[i];
+
+        const singleTravelRating = singleTravel.rating;
+
+        total += singleTravelRating;
+      }
+      if (this.store.travels.length > 0){
+        let trueTotal = total  / this.store.travels.length;
+        return parseInt(trueTotal);
+      }
+      else {
+        return 0;
+      }
     },
     addTrip(newTrip){
       if (this.newTrip.tripName === ''){
@@ -31,16 +50,17 @@ export default {
       }
       else {
         this.errorInputName = false;
-        this.store.travels.push({...newTrip})
+        this.store.travels.push({...newTrip});
+        this.generalStars();
         this.keep();
         this.newTrip.tripName = '';
         this.newTrip.rating = '';
         this.newTrip.description = '';
       }
-
     },
     removeTravel(trip) {
       this.store.travels.splice(trip, 1);
+      this.generalStars();
       this.keep();
     },
     emptyStars(stars){
@@ -50,6 +70,7 @@ export default {
   },
   mounted() {
     this.keepUp();
+    this.generalStars();
   }
 }
 
@@ -112,11 +133,30 @@ export default {
                   </div>
                 </div>
                 
+                <!-- RIEPILOGO -->
+                 <div class="col">
+                  <h3 class="my-3">Riepilogo Viaggio</h3>
+                  <div class="d-flex flex-column"
+                  v-if="this.store.travels.length > 0">
+                    <p><strong>Valutazione generale: </strong></p>
+                    <div class="d-flex justify-content-center">
+                        <ul class="d-flex gap-3 stars">
+                          <li
+                          v-for="(star, i) in generalStars()" :key="i" class="gold">
+                            <font-awesome-icon :icon="['fas', 'star']" />
+                          </li>
+                          <li v-for="(eStar, i) in emptyStars(generalStars())" :key="i" class="gold">
+                            <font-awesome-icon :icon="['far', 'star']" />
+                          </li>
+                        </ul>
+                    </div>
+                 </div>
               </div>
             </div>          
           </div>
         </div>
       </div>
+    </div>
     </section>
   </main>
 
