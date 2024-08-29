@@ -21,7 +21,7 @@ main {
 }
 
 .logo {
-  font-size: 48px;
+  
   font-weight: 600;
   color: palegoldenrod;
 }
@@ -64,14 +64,51 @@ main {
   color: palegoldenrod !important;
 }
 
+.card_recap {
+  background-color: lightseagreen;
+  color: white;
+  border-radius: 16px;
+  height: 320px;
+}
+
 strong {
   color: lightseagreen !important;
 }
 
-.btn-in {
-  background-color: #0A66C2;
+.coral {
+  color: lightcoral !important;
+  font-weight: 700;
 }
 
 .left {
   text-align: left !important;
+}
+
+
+
+
+
+// *** MEDIA ***
+@media screen and (min-width: 300px){
+
+
+
+  .logo {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 698px){
+
+
+
+}
+
+@media screen and (min-width: 698px){
+
+
+
+  .logo {
+    font-size: 48px;
+  }
 }

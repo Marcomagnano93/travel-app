@@ -140,8 +140,8 @@ export default {
               <div class="row">
 
                 <!-- FORM -->
-                <div class="col">
-                  <h3 class="my-3">Aggiungi una tappa</h3>
+                <div class="col col-sm-12 col-md-6 col-lg-4">
+                  <h3 class="my-3 coral">Aggiungi una tappa</h3>
                   <p>I campi con * sono obbligatori</p>
                   <div class="d-flex flex-column gap-3">
                     <input type="text" v-model="newTrip.tripName" class="form-control" placeholder=" * Nome della tappa" @keyup.enter="addTrip(this.newTrip)">
@@ -156,7 +156,7 @@ export default {
                       </div>
                     <input type="text" v-model="newTrip.days" class="form-control" placeholder=" * Notti di permanenza" @keyup.enter="addTrip(this.newTrip)">
                       <div class="error" v-if="this.errorNight === true">
-                          <p>Inserisci un numero pari o superiore a 0 per le notti</p>
+                          <p>Inserisci un numero pari o superiore a 0</p>
                       </div>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa" @keyup.enter="addTrip(this.newTrip)"></textarea>
                     <div class="d-flex gap-3">
@@ -171,8 +171,8 @@ export default {
                 </div>
 
                 <!-- DATA -->
-                <div class="col">
-                  <h3 class="my-3">Le tue tappe</h3>
+                <div class="col col-sm-12 col-md-6 col-lg-4">
+                  <h3 class="my-3 coral">Le tue tappe</h3>
                   <div v-for="(travel, i) in store.travels" :key="i">
                       <h4 class="seagreen"><strong>{{ travel.tripName }}</strong></h4>
                       <p>{{ travel.description }}</p>
@@ -196,15 +196,15 @@ export default {
                 </div>
                 
                 <!-- RIEPILOGO -->
-                 <div class="col">
+                 <div class="col card_recap">
                   <h3 class="my-3">Riepilogo Viaggio</h3>
                   <div class="d-flex flex-column"
                   v-if="this.store.travels.length > 0">
-                    <p><strong>Tappe: </strong>{{ this.store.travels.length }}</p>
-                    <p><strong>Notti di viaggio: </strong> {{ totalDays() }}</p>
-                    <p><strong>Costo totale: </strong> {{ totalPrice() }} €</p>
-                    <p><strong>Costo medio per notte: </strong> {{ priceXNight(totalDays(), totalPrice()) }} €</p>
-                    <p><strong>Valutazione generale: </strong></p>
+                    <p><strong class="goldsand ">Tappe: </strong>{{ this.store.travels.length }}</p>
+                    <p><strong class="goldsand ">Notti di viaggio: </strong> {{ totalDays() }}</p>
+                    <p><strong class="goldsand ">Costo totale: </strong> {{ totalPrice() }} €</p>
+                    <p><strong class="goldsand ">Costo medio per notte: </strong> {{ priceXNight(totalDays(), totalPrice()) }} €</p>
+                    <p><strong class="goldsand ">Valutazione generale: </strong></p>
                     <div class="d-flex justify-content-center">
                         <ul class="d-flex gap-3 stars">
                           <li

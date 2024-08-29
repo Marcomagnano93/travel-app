@@ -2,4 +2,6 @@ CODING TRAINING TRAVEL APP
 
 
 NEXT_STEPS
-- Footer
+- Aggiungi un modale per modificare e salvare le tappe
+- responsive
+- Deploy
