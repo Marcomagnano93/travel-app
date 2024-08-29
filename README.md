@@ -1,7 +1,7 @@
 CODING TRAINING TRAVEL APP
 
+RoadTrip is a Web App that gives you the possibility to track every step of your journey!
 
-NEXT_STEPS
-- Aggiungi un modale per modificare e salvare le tappe
-- responsive
-- Deploy
+NEXT STEPS
+- Full responsive
+- More Travels
