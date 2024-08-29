@@ -27,7 +27,7 @@ export default {
 
     },
     keepUp() {
-      this.store.travels === localStorage.travels
+      this.store.travels = localStorage.travels
         ? JSON.parse(localStorage.travels)
         : [];
     },
