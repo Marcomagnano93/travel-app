@@ -166,11 +166,11 @@ export default {
                         <p>Inserisci il nome della tua tappa</p>
                       </div>
                     </div>
-                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder=" * Costo della tappa in €" @keyup.enter="addTrip(this.newTrip)">
+                    <input type="number" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder=" * Costo della tappa in €" @keyup.enter="addTrip(this.newTrip)">
                       <div class="error" v-if="this.errorPay === true">
                           <p>Il costo deve essere un numero positivo</p>
                       </div>
-                    <input type="text" v-model="newTrip.days" class="form-control" placeholder=" * Notti di permanenza" @keyup.enter="addTrip(this.newTrip)">
+                    <input type="number" v-model="newTrip.days" class="form-control" placeholder=" * Notti di permanenza" @keyup.enter="addTrip(this.newTrip)">
                       <div class="error" v-if="this.errorNight === true">
                           <p>Inserisci un numero pari o superiore a 0</p>
                       </div>
@@ -214,7 +214,7 @@ export default {
 
                 <!-- RIEPILOGO -->
                  <div class="col">
-                    <div class="card_recap">
+                    <div class="card_recap py-2">
                       <h3 class="my-3">Riepilogo Viaggio</h3>
                       <div class="d-flex flex-column"
                         v-if="this.store.travels.length > 0">
