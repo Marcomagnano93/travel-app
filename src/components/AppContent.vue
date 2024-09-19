@@ -166,15 +166,15 @@ export default {
                         <p>Inserisci il nome della tua tappa</p>
                       </div>
                     </div>
-                    <input type="number" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder=" * Costo della tappa in €" @keyup.enter="addTrip(this.newTrip)">
+                    <input type="text" id="cost" name="cost" v-model="newTrip.payed" class="form-control" placeholder=" * Costo della tappa in €" @keyup.enter="addTrip(this.newTrip)">
                       <div class="error" v-if="this.errorPay === true">
                           <p>Il costo deve essere un numero positivo</p>
                       </div>
-                    <input type="number" v-model="newTrip.days" class="form-control" placeholder=" * Notti di permanenza" @keyup.enter="addTrip(this.newTrip)">
+                    <input type="text" v-model="newTrip.days" class="form-control" placeholder=" * Notti di permanenza" @keyup.enter="addTrip(this.newTrip)">
                       <div class="error" v-if="this.errorNight === true">
                           <p>Inserisci un numero pari o superiore a 0</p>
                       </div>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa" @keyup.enter="addTrip(this.newTrip)"></textarea>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newTrip.description" placeholder="Aggiungi informazioni sulla tappa"></textarea>
                     <div class="d-flex gap-3">
                       <h5>Valutazione:</h5>
                       <div v-for="(inp, i) in 6" :key="i">
@@ -251,7 +251,6 @@ export default {
                         </div>
                       </div>
                   </div>
-
             </div>          
           </div>
         </div>
